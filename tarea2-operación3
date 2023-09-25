@@ -1,0 +1,41 @@
+import java.util.ArrayList;
+import java.util.List;
+
+class Pedido {
+    String producto;
+    int cantidad;
+
+    public Pedido(String producto, int cantidad) {
+        this.producto = producto;
+        this.cantidad = cantidad;
+    }
+
+    // Métodos getters y setters
+}
+
+class AsistenteVirtual {
+    List<Pedido> pedidos = new ArrayList<>();
+
+    public void realizarPedido(String producto, int cantidad) {
+        pedidos.add(new Pedido(producto, cantidad));
+    }
+
+    public void generarReportePedidos() {
+        System.out.println("Reporte de Pedidos:");
+        for (Pedido pedido : pedidos) {
+            System.out.println("Producto: " + pedido.producto + ", Cantidad: " + pedido.cantidad);
+        }
+    }
+}
+
+public class ReportePedidos {
+    public static void main(String[] args) {
+        AsistenteVirtual asistente = new AsistenteVirtual();
+        asistente.realizarPedido("Martillo", 2);
+        asistente.realizarPedido("Destornillador", 3);
+
+        // Generar reporte de pedidos
+        asistente.generarReportePedidos();
+    }
+}
+
