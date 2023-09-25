@@ -1,0 +1,60 @@
+// Implementación de algoritmos transversales de pre-pedido
+class CategoriaProducto {
+    String nombre;
+    List<Producto> productos;
+
+    public CategoriaProducto(String nombre) {
+        this.nombre = nombre;
+        productos = new ArrayList<>();
+    }
+
+    public void agregarProducto(Producto producto) {
+        productos.add(producto);
+    }
+
+    // Implementación recursiva para mostrar productos de la categoría y subcategorías
+    public void mostrarProductos() {
+        System.out.println("Categoría: " + nombre);
+        for (Producto producto : productos) {
+            producto.mostrarProducto();
+        }
+    }
+}
+
+class Producto {
+    String nombre;
+
+    public Producto(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void mostrarProducto() {
+        System.out.println("Producto: " + nombre);
+    }
+}
+
+public class AlgoritmosPrePedido {
+    public static void main(String[] args) {
+        CategoriaProducto herramientas = new CategoriaProducto("Herramientas");
+        Producto martillo = new Producto("Martillo");
+        Producto destornillador = new Producto("Destornillador");
+
+        herramientas.agregarProducto(martillo);
+        herramientas.agregarProducto(destornillador);
+
+        CategoriaProducto pintura = new CategoriaProducto("Pintura");
+        Producto brocha = new Producto("Brocha");
+        Producto rodillo = new Producto("Rodillo");
+
+        pintura.agregarProducto(brocha);
+        pintura.agregarProducto(rodillo);
+
+        CategoriaProducto productos = new CategoriaProducto("Productos");
+        productos.agregarProducto(herramientas);
+        productos.agregarProducto(pintura);
+
+        System.out.println("Productos disponibles:");
+        productos.mostrarProductos();
+    }
+}
+
