@@ -1,0 +1,31 @@
+import weka.classifiers.Classifier;
+import weka.classifiers.trees.Id3;
+import weka.core.Instances;
+import weka.core.converters.ConverterUtils.DataSource;
+
+public class ResolverProblemaID3 {
+    public static void main(String[] args) throws Exception {
+        // Cargar el conjunto de datos
+        DataSource source = new DataSource("datos_ventas.arff");
+        Instances data = source.getDataSet();
+        data.setClassIndex(data.numAttributes() - 1);
+
+        // Inicializar el clasificador ID3
+        Classifier id3 = new Id3();
+        id3.buildClassifier(data);
+
+        // Realizar una predicción
+        double[] instanceValues = new double[data.numAttributes()];
+        // Configurar los valores de atributos para una instancia específica
+        instanceValues[0] = 2.5; // Valor del atributo 1
+        instanceValues[1] = 1.0; // Valor del atributo 2
+        // ...
+
+        // Realizar la predicción
+        double prediction = id3.classifyInstance(new weka.core.DenseInstance(1.0, instanceValues));
+
+        // Mostrar la clase predicha
+        String predictedClass = data.classAttribute().value((int) prediction);
+        System.out.println("Clase predicha: " + predictedClass);
+    }
+}
