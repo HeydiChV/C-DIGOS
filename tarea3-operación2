@@ -1,0 +1,35 @@
+
+import weka.attributeSelection.InfoGainAttributeEval;
+import weka.attributeSelection.Ranker;
+import weka.core.Attribute;
+import weka.core.Instances;
+import weka.core.converters.ConverterUtils.DataSource;
+import weka.filters.Filter;
+import weka.filters.supervised.attribute.AttributeSelection;
+
+public class AplicarEntropiaYGanancia {
+    public static void main(String[] args) throws Exception {
+        // Cargar el conjunto de datos
+        DataSource source = new DataSource("datos_ventas.arff");
+        Instances data = source.getDataSet();
+        data.setClassIndex(data.numAttributes() - 1);
+
+        // Aplicar evaluación de atributos por Ganancia de Información
+        InfoGainAttributeEval eval = new InfoGainAttributeEval();
+        Ranker ranker = new Ranker();
+        ranker.setNumToSelect(5); // Seleccionar el top 5 de atributos
+        AttributeSelection attrSelection = new AttributeSelection();
+        attrSelection.setEvaluator(eval);
+        attrSelection.setSearch(ranker);
+        attrSelection.setInputFormat(data);
+
+        Instances selectedData = Filter.useFilter(data, attrSelection);
+
+        // Mostrar los atributos seleccionados y su Ganancia de Información
+        for (int i = 0; i < selectedData.numAttributes(); i++) {
+            Attribute attribute = selectedData.attribute(i);
+            System.out.println("Atributo: " + attribute.name() + ", Ganancia de Información: " + eval.evaluateAttribute(i));
+        }
+    }
+}
+
